@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'rate_limit_mock_server/version'
 require 'rate_limit_mock_server/server'
 
 module RateLimitMockServer
