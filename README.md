@@ -66,10 +66,11 @@ The server responds to the following routes:
  - `PUT /quit` - Stops the server.
  - `GET /:rate_limit` - Rate limited resources where `:rate_limit` is an integer that specifies the rate limit.
 
-The "main" route (`GET /:rate_limit`) can be used to test different rate limits simultaneously. E.g. requests to
-`GET /5` will be limited at 5 rps, while requests to `GET /20` will be limited at 20 rps.
+The "main" route (`GET /:rate_limit`) can be used to test different rate limits simultaneously. E.g. requests to:
+- `GET /5` will be limited at 5 rps.
+- `GET /20` will be limited at 20 rps.
 
-Note: `:rate_limit` must be an integer greater than or equal to `1`. I.e it's not possible to user rate limits lower than 1 rps.
+Note: `:rate_limit` must be an integer greater than or equal to `1`. I.e it's not possible to use rate limits lower than 1 rps.
 
 The server can be stopped by either `RateLimitMockServer.quit!` or by sending a PUT request to `http://localhost:4567/quit`.
 
