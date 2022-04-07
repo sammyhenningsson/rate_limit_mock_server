@@ -1,8 +1,6 @@
 # RateLimitMockServer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rate_limit_mock_server`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A mock server for testing rate limits.
 
 ## Installation
 
@@ -21,6 +19,11 @@ Or install it yourself as:
     $ gem install rate_limit_mock_server
 
 ## Usage
+Run the server in a shell:
+```sh
+$ rate_limit_mock_server
+```
+
 To start the server from code, do this:
 ```ruby
   require 'rate_limit_mock_server`
@@ -49,7 +52,17 @@ Note, If you don't want the server to block the current thread, you can instead 
   thread.join
 ```
 
-The server can be stopped by either `RateLimitMockServer.quit!` or by sending a GET to `http://localhost:4567/quit`.
+The server responds to the following routes:
+ - `GET /limit_test` - Returns a "429 Too Many Requests" response (only for showing how such a response look).
+ - `PUT /quit` - Stops the server.
+ - `GET /:rate_limit` - Rate limited resources where `:rate_limit` is an integer that specifies the rate limit.
+
+The "main" route (`GET /:rate_limit`) can be used to test different rate limits simultaneously. E.g. requests to
+`GET /5` will be limited at 5 rps, while requests to `GET /20` will be limited at 20 rps.
+
+Note: `:rate_limit` must be an integer greater than or equal to `1`. I.e it's not possible to user rate limits lower than 1 rps.
+
+The server can be stopped by either `RateLimitMockServer.quit!` or by sending a PUT request to `http://localhost:4567/quit`.
 
 ## Development
 

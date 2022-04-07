@@ -18,7 +18,7 @@ module RateLimitMockServer
       [429, "Current rate for #{request.path_info}: #{error.rate} (allowed #{error.limit})\n"]
     end
 
-    get '/quit' do
+    put '/quit' do
       self.class.quit!
     end
 
