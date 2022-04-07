@@ -1,8 +1,21 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-$: << File.expand_path('../lib/', __dir__)
-  
+$LOAD_PATH << File.expand_path('../lib/', __dir__)
+
 require 'rate_limit_mock_server'
-  
-RateLimitMockServer.start
+
+port = nil
+pattern = /\A-(?:-port(?:=(\d)*)?|p)\Z/
+index = ARGV.index do |arg|
+  next unless m = pattern.match(arg)
+
+  port = m[1] if m.size > 1
+  true
+end
+
+port ||= ARGV[index + 1] if index
+port &&= port.to_i
+port = nil if port&.zero?
+
+RateLimitMockServer.start(port: port)

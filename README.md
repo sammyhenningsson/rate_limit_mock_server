@@ -21,15 +21,24 @@ Or install it yourself as:
 ## Usage
 Run the server in a shell:
 ```sh
+# On default port: 4567
 $ rate_limit_mock_server
+
+# Or specify the port with
+$ rate_limit_mock_server --port= 3000
+# Or 
+$ rate_limit_mock_server -p 3000
 ```
 
 To start the server from code, do this:
 ```ruby
   require 'rate_limit_mock_server`
 
-  # Start the server on port 4567 and block the current thread
+  # Start the server on the default port 4567 and block the current thread
   RateLimitMockServer.start
+
+  # Or start the server on the specified port and block the current thread
+  RateLimitMockServer.start(port: 1337)
 ```
 
 Note, If you don't want the server to block the current thread, you can instead spawn a new thread for the server.
@@ -37,7 +46,7 @@ Note, If you don't want the server to block the current thread, you can instead 
   require 'rate_limit_mock_server`
 
   thread = Thread.new do
-    # Start the server on port 4567 and block the current thread
+    # Start the server on port 4567
     RateLimitMockServer.start
   end
 
